@@ -1,0 +1,146 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://test_player_movementplayer.gd" type="Script" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://item_area.gd" type="Script" id=3]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="Skin" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.0313726, 0, 1, 1 )
+
+[sub_resource type="BoxShape" id=4]
+
+[sub_resource type="CubeMesh" id=5]
+
+[sub_resource type="SpatialMaterial" id=6]
+
+[sub_resource type="BoxShape" id=7]
+
+[sub_resource type="PrismMesh" id=17]
+
+[sub_resource type="CapsuleMesh" id=8]
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CapsuleShape" id=10]
+
+[sub_resource type="SphereMesh" id=11]
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_color = Color( 0.909804, 1, 0, 1 )
+
+[sub_resource type="SphereShape" id=13]
+
+[sub_resource type="CylinderMesh" id=14]
+
+[sub_resource type="SpatialMaterial" id=15]
+albedo_color = Color( 0.196078, 1, 0, 1 )
+
+[sub_resource type="CylinderShape" id=16]
+
+[node name="Main" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.113328, 0.114043 )
+script = ExtResource( 2 )
+
+[node name="floor_static" type="StaticBody" parent="."]
+transform = Transform( 10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, 0, 0 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="floor_mesh2" type="MeshInstance" parent="floor_static"]
+mesh = SubResource( 1 )
+skin = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="floor_static"]
+shape = SubResource( 4 )
+
+[node name="wall_static2" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.30452, 1.97185, 0 )
+
+[node name="wall_mesh2" type="MeshInstance" parent="wall_static2"]
+mesh = SubResource( 5 )
+material/0 = SubResource( 6 )
+
+[node name="wall_collisiion" type="CollisionShape" parent="wall_static2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.389573, -0.377847, -2.38419e-07 )
+visible = false
+shape = SubResource( 7 )
+
+[node name="prism1" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.30452, 1.97185, 0 )
+
+[node name="prism _mesh2" type="MeshInstance" parent="prism1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.18269, 0 )
+mesh = SubResource( 17 )
+material/0 = SubResource( 6 )
+
+[node name="prism_collisiion" type="CollisionShape" parent="prism1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.389573, -0.377847, -2.38419e-07 )
+visible = false
+shape = SubResource( 7 )
+
+[node name="player" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1.5, 0, 1, -6.55671e-08, 0, 2.18922, 0 )
+script = ExtResource( 1 )
+
+[node name="player_mesh" type="MeshInstance" parent="player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.45058e-09, -0.337002 )
+mesh = SubResource( 8 )
+material/0 = SubResource( 9 )
+
+[node name="CollisionShape" type="CollisionShape" parent="player"]
+shape = SubResource( 10 )
+
+[node name="test_mesh" type="MeshInstance" parent="player"]
+
+[node name="Camera" type="Camera" parent="player"]
+
+[node name="ball" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+
+[node name="ball mesh" type="MeshInstance" parent="ball"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7162, -6.0261, -5.52325 )
+mesh = SubResource( 11 )
+material/0 = SubResource( 12 )
+
+[node name="ball collision" type="CollisionShape" parent="ball"]
+shape = SubResource( 13 )
+
+[node name="teleport locations" type="Spatial" parent="."]
+
+[node name="middle_teleport" type="StaticBody" parent="teleport locations"]
+transform = Transform( 1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0.1, 8 )
+
+[node name="teleport_mesh" type="MeshInstance" parent="teleport locations/middle_teleport"]
+mesh = SubResource( 14 )
+material/0 = SubResource( 15 )
+
+[node name="CollisionShape" type="CollisionShape" parent="teleport locations/middle_teleport"]
+shape = SubResource( 16 )
+
+[node name="left_teleport" type="StaticBody" parent="teleport locations"]
+transform = Transform( 1, 0, 0, 0, 0.1, 0, 0, 0, 1, -6.11493, 0.1, 8 )
+
+[node name="teleport_mesh" type="MeshInstance" parent="teleport locations/left_teleport"]
+mesh = SubResource( 14 )
+material/0 = SubResource( 15 )
+
+[node name="CollisionShape" type="CollisionShape" parent="teleport locations/left_teleport"]
+shape = SubResource( 16 )
+
+[node name="right_teleport" type="StaticBody" parent="teleport locations"]
+transform = Transform( 1, 0, 0, 0, 0.1, 0, 0, 0, 1, 6.69074, 0.1, 8 )
+
+[node name="teleport_mesh" type="MeshInstance" parent="teleport locations/right_teleport"]
+mesh = SubResource( 14 )
+material/0 = SubResource( 15 )
+
+[node name="CollisionShape" type="CollisionShape" parent="teleport locations/right_teleport"]
+shape = SubResource( 16 )

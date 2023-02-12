@@ -1,0 +1,108 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://paddle2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://PingPongBoard.tscn" type="PackedScene" id=3]
+[ext_resource path="res://paddle_model.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Ball_movement.gd" type="Script" id=5]
+[ext_resource path="res://PixelOperatorMono8-Bold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://player 1.gd" type="Script" id=7]
+[ext_resource path="res://Player_2_score.gd" type="Script" id=8]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 1, 0.796078, 0.309804, 1 )
+
+[sub_resource type="SphereShape" id=3]
+
+[sub_resource type="BoxShape" id=5]
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 6 )
+
+[node name="Main" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.113328, 0.114043 )
+script = ExtResource( 1 )
+
+[node name="Paddle1" parent="." instance=ExtResource( 4 )]
+transform = Transform( -2.18557e-07, 1, 0, -5, -4.37114e-08, 0, 0, 0, 5, 45, 10, 0 )
+
+[node name="Camera2" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-11, 1, 0, -1, -4.37114e-11, 0, 59.4977, 0 )
+visible = false
+
+[node name="ui" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="ui"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "0"
+
+[node name="paddle2" parent="." instance=ExtResource( 2 )]
+transform = Transform( -3.7749e-07, -1, -4.37114e-07, -5, 7.54979e-08, 4.37114e-07, -4.37114e-07, 8.74228e-08, -5, -45, 10, 0 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 50, 0 )
+current = true
+
+[node name="PingPongBoard" parent="." instance=ExtResource( 3 )]
+transform = Transform( -2.18557e-07, 0, 5, 0, 3, 0, -5, 0, -2.18557e-07, 0, 0, 0 )
+
+[node name="Ball" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0 )
+script = ExtResource( 5 )
+
+[node name="ball_mesh" type="MeshInstance" parent="Ball"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Ball"]
+shape = SubResource( 3 )
+
+[node name="walls" type="Spatial" parent="."]
+
+[node name="wall_left" type="StaticBody" parent="walls"]
+transform = Transform( 1, 0, 0, 0, 100, 0, 0, 0, 30, -51.5, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="walls/wall_left"]
+shape = SubResource( 5 )
+
+[node name="wall_right" type="StaticBody" parent="walls"]
+transform = Transform( 1, 0, 0, 0, 100, 0, 0, 0, 30, 51.5, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="walls/wall_right"]
+shape = SubResource( 5 )
+
+[node name="wall_bottom" type="StaticBody" parent="walls"]
+transform = Transform( 60, 0, 0, 0, 100, 0, 0, 0, 1, 0, 0, 28.5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="walls/wall_bottom"]
+shape = SubResource( 5 )
+
+[node name="wall_top" type="StaticBody" parent="walls"]
+transform = Transform( 60, 0, 0, 0, 100, 0, 0, 0, 1, 0, 0, -28.5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="walls/wall_top"]
+shape = SubResource( 5 )
+
+[node name="Player_1_score" type="Label" parent="."]
+margin_left = -2.0
+margin_right = 98.0
+margin_bottom = 21.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = SubResource( 6 )
+text = "0"
+script = ExtResource( 7 )
+
+[node name="Player_2_score" type="Label" parent="."]
+margin_left = 960.0
+margin_top = 3.0
+margin_right = 1047.0
+margin_bottom = 20.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = SubResource( 6 )
+text = "0"
+script = ExtResource( 8 )
